@@ -2,7 +2,7 @@
 
 ### Termux Prompt ###
 color_prompt=yes
-CustomPrompt = DefaultPromt
+CustomPrompt=DefaultPrompt
 
 if [[ CustomPrompt == "TermuxPrompt" ]]; then
 	user=UserName

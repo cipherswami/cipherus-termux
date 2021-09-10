@@ -86,3 +86,7 @@
 
 ### ctrl+space (for marking text in emacs) does not work on some devices
 # ctrl-space-workaround = true
+
+# Cipher's Termux Extra keys Configuration
+extra-keys = [['CTRL','$','|','HOME','UP','END','-','='], \
+              ['TAB','ESC','ALT','LEFT','DOWN','RIGHT','/','DEL']]

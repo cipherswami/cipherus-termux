@@ -7,6 +7,9 @@
 # Mail: aravindswami135@gmail.com
 
 ## Funtions ##
+
+# Pre Process Functions
+
 function banner_cipherusprime() {
 
     blue='\033[1;34m'
@@ -22,35 +25,6 @@ function banner_cipherusprime() {
     printf "    ${blue}  |||||||  ${light_cyan}name-is-cipher  ${blue}|||||||\n"
     printf "    ${blue}-------------------------------------${reset}"
     echo " "
-    echo " "
-
-}
-
-function termux_bashrc() {
-
-    echo " [*] Configuring bashrc ..."
-    echo " "
-    exit
-    curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/bashrc.txt
-    if [[ -f ~/.bashrc ]]: then
-        mv ~/.bashrc ~/.bashrc.bak
-    fi
-    read -p "Enter User Name Prompt: " User_Name
-    read -p "Enter Device Name Prompt: " Device_Name
-    sed -i s/DefaultPromt/TermuxPrompt/ bashrc.txt
-    mv bashrc.txt ~/.bashrc
-    exit
-    
-    if [ -d ~/.termux/bin ]; then
-        echo >> ~/.bashrc
-        echo "# This PATH is for Termux superuser bin folder" >> ~/.bashrc
-        echo "export PATH=\$PATH:/data/data/com.termux/files/home/.termux/bin" >> ~/.bashrc
-        ibar ~/.bashrc 36
-    else
-        ibar ~/.bashrc 33
-    fi
-
-    echo " [*] Successfully Configured bashrc"
     echo " "
 
 }
@@ -75,19 +49,13 @@ function ynprompt() {
 
 }
 
-function check_tbin() {
+function clean_cipherus() {
 
-    if [ ! -d ~/.termux/bin ]; then
-        
-        mkdir ~/.termux/bin
-        echo >> ~/.bashrc
-        echo "# This PATH is for Termux superuser bin folder" >> ~/.bashrc
-        echo >> ~/.bashrc
-        echo "export PATH=\$PATH:/data/data/com.termux/files/home/.termux/bin" >> ~/.bashrc
-
+    if [ -f cipherus-libraries.sh ]; then
+        rm cipherus-libraries.sh
     fi
-
 }
+
 
 function ibar {
 
@@ -135,12 +103,73 @@ function ibar {
 
 }
 
-function clean_cipherus() {
+function termux_bashrc() {
 
-    if [ -f cipherus-libraries.sh ]; then
-        rm cipherus-libraries.sh
-        rm ~/.wget-hsts
+    echo " [*] Configuring bashrc ..."
+    echo " "
+    exit
+    if [[ -f ~/.bashrc ]]; then
+        mv ~/.bashrc ~/.bashrc.bak
     fi
+    curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/bashrc.txt
+    read -p "Enter User Name Prompt: " User_Name
+    read -p "Enter Device Name Prompt: " Device_Name
+    sed -i 's/DefaultPromt/TermuxPrompt/' bashrc.txt
+    sed -i 's/User_Name/$User_Name/' bashrc.txt
+    sed -i 's/Device_Name/$Device_Name/' bashrc.txt
+    mv bashrc.txt ~/.bashrc 
+    if [ -d ~/.termux/bin ]; then
+        echo >> ~/.bashrc
+        echo "# This PATH is for Termux superuser bin folder" >> ~/.bashrc
+        echo "export PATH=\$PATH:/data/data/com.termux/files/home/.termux/bin" >> ~/.bashrc
+        ibar ~/.bashrc 38
+    else
+        ibar ~/.bashrc 35
+    fi
+
+    echo " [*] Successfully Configured bashrc"
+    echo " "
+
+}
+
+function check_tbin() {
+
+    if [ ! -d ~/.termux/bin ]; then
+        
+        mkdir ~/.termux/bin
+        echo >> ~/.bashrc
+        echo "# This PATH is for Termux superuser bin folder" >> ~/.bashrc
+        echo "export PATH=\$PATH:/data/data/com.termux/files/home/.termux/bin" >> ~/.bashrc
+
+    fi
+
+}
+
+function install_termux-rootuser() {
+
+    echo " [*] Installing Termux's Root User..."
+    echo " "
+    sleep 2
+    apt install tsu -y
+
+    if [[ ! -d ~/.suroot ]]; then
+        mkdir ~/.suroot
+    fi
+
+    if [[ ! -f ~/.bashrc ]]; then
+    curl -os ~/.bashrc https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/bashrc.txt
+    fi
+
+    if [ ! -f ~/.suroot/.bashrc ]; then
+        cp ~/.bashrc ~/.suroot/
+    fi
+
+    echo " "
+    echo " [*] Installation successful !!!"
+    echo " "
+    echo "> Run 'tsu' anywhere to start Termux's Root User."
+    echo " "
+
 }
 
 function termux_extra-keys() {
@@ -148,16 +177,11 @@ function termux_extra-keys() {
     echo " "
     echo " [*] Adding Extra Keys to Termux !!!"
     echo " "
-
-    # Binding extra keys
-    echo "# Cipher's Termux Extra keys Configuration:" > ~/.termux/termux.properties
-    echo >> ~/.termux/termux.properties
-    echo "extra-keys = [ \\" >> ~/.termux/termux.properties
-    echo " ['CTRL','$','|','HOME','UP','END','-','='], \\" >> ~/.termux/termux.properties
-    echo " ['TAB','ESC','ALT','LEFT','DOWN','RIGHT','/','DEL'] \\" >> ~/.termux/termux.properties
-    echo "]" >> ~/.termux/termux.properties
-
-    ibar ~/.termux/termux.properties 6
+    if [[ -f ~/.termux/termux.properties ]]; then
+        mv ~/.termux/termux.properties ~/.termux/termux.properties.bak
+    fi
+    curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/termux.properties.txt
+    ibar ~/.termux/termux.properties 92
 
     echo " "
     echo " > Successfully added extra Keys to Termux !!!"
@@ -250,28 +274,6 @@ function install_termux-superuser() {
 
 }
 
-function install_termux-rootuser() {
-
-    echo " [*] Installing Termux's Root User..."
-    echo " "
-    sleep 2
-    apt install tsu -y
-
-    if [ ! -d ~/.suroot ]; then
-        mkdir ~/.suroot
-    fi
-
-    if [ ! -f ~/.suroot/.bashrc ]; then
-        cp ~/.bashrc ~/.suroot/
-    fi
-
-    echo " "
-    echo " [*] Installation successful !!!"
-    echo " "
-    echo "> Run 'tsu' anywhere to start Termux's Root User."
-    echo " "
-
-}
 
 function storage_api() {
 

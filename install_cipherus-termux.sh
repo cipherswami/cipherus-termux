@@ -1,4 +1,4 @@
-## ! /data/data/com.termux/files/usr/bin/bash
+#! /data/data/com.termux/files/usr/bin/bash
 
 # The is cipher's Termux configurations:
 
@@ -28,7 +28,7 @@ if [[ ! -f cipherus-libraries.sh ]]; then
 curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/cipherus-libraries.sh
 fi
 
-source ./cipherus-libraries.sh
+source cipherus-libraries.sh
 
 ###################### main ##########################
 
@@ -38,13 +38,11 @@ banner_cipherusprime
 
 termux_bashrc
 
-# check_tbin
+check_tbin
 
 echo " "
 echo " Press ENTER to continue ..."
 read
-
-exit
 
 # Termux's Root User
 
@@ -55,6 +53,8 @@ install_termux-rootuser
 echo " "
 echo " Press ENTER to continue ..."
 read
+
+exit
 
 # Termux sshd
 
