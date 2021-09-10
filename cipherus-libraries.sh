@@ -6,6 +6,7 @@
 # Twitter: name_is_cipher
 # Mail: aravindswami135@gmail.com
 
+## Funtions ##
 function banner_cipherusprime() {
 
     blue='\033[1;34m'
@@ -29,24 +30,25 @@ function termux_bashrc() {
 
     echo " [*] Configuring bashrc ..."
     echo " "
-    curl -Os https://github.com/name-is-cipher/name-is-cipher/raw/main/assets/bashrc.txt
-
-    if [[ -f ~/bashrc ]]: then
-        mv ~/bashrc ~/bashrc.bak
+    exit
+    curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/bashrc.txt
+    if [[ -f ~/.bashrc ]]: then
+        mv ~/.bashrc ~/.bashrc.bak
     fi
-
-    mv bashrc.txt ~/bashrc
-
+    read -p "Enter User Name Prompt: " User_Name
+    read -p "Enter Device Name Prompt: " Device_Name
+    sed -i s/DefaultPromt/TermuxPrompt/ bashrc.txt
+    mv bashrc.txt ~/.bashrc
+    exit
+    
     if [ -d ~/.termux/bin ]; then
         echo >> ~/.bashrc
         echo "# This PATH is for Termux superuser bin folder" >> ~/.bashrc
-        echo >> ~/.bashrc
         echo "export PATH=\$PATH:/data/data/com.termux/files/home/.termux/bin" >> ~/.bashrc
-        ibar ~/.bashrc 37
+        ibar ~/.bashrc 36
     else
         ibar ~/.bashrc 33
     fi
-
 
     echo " [*] Successfully Configured bashrc"
     echo " "

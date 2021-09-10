@@ -1,4 +1,4 @@
-#! /data/data/com.termux/files/usr/bin/bash
+## ! /data/data/com.termux/files/usr/bin/bash
 
 # The is cipher's Termux configurations:
 
@@ -13,13 +13,22 @@ fi
 
 clear
 
+## Pre variable initiations ##
+Dev=1
+
+if [[ Dev == 0 ]]; then
+    export BRANCH=main
+else
+    export BRANCH=development
+fi
+
 ###   Downloading installation Libraries   ###
 
 if [[ ! -f cipherus-libraries.sh ]]; then
-curl -Os https://github.com/name-is-cipher/cipherus-termux/raw/main/cipherus-libraries.sh
+curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/cipherus-libraries.sh
 fi
 
-source cipherus-libraries.sh
+source ./cipherus-libraries.sh
 
 ###################### main ##########################
 
@@ -29,7 +38,7 @@ banner_cipherusprime
 
 termux_bashrc
 
-check_tbin
+# check_tbin
 
 echo " "
 echo " Press ENTER to continue ..."

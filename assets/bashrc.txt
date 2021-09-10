@@ -2,10 +2,11 @@
 
 ### Termux Prompt ###
 color_prompt=yes
+CustomPrompt = DefaultPromt
 
-if [[ $User_Name != "" && $Device_Name != "" ]]; then
-	user=$User_Name
-	device=$Device_Name
+if [[ CustomPrompt == "TermuxPrompt" ]]; then
+	user=UserName
+	device=DeviceName
 else
 	user=termux
 	device=localhost
@@ -30,5 +31,5 @@ fi
 unset color_prompt force_color_prompt
 
 # Aliases
-alias lsa="ls -AlF"
-alias ll="ls -l"
+export alias lsa="ls -AlF"
+export alias ll="ls -l"
