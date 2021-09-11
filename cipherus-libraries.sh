@@ -103,6 +103,8 @@ function ibar {
 
 }
 
+# Main Installation Functions
+
 function termux_bashrc() {
 
     echo " [*] Configuring bashrc ..."
@@ -144,33 +146,6 @@ function check_tbin() {
 
 }
 
-function install_termux-rootuser() {
-
-    echo " [*] Installing Termux's Root User..."
-    echo " "
-    sleep 2
-    apt install tsu -y
-
-    if [[ ! -d ~/.suroot ]]; then
-        mkdir ~/.suroot
-    fi
-
-    if [[ ! -f ~/.bashrc ]]; then
-    curl -os ~/.bashrc https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/bashrc.txt
-    fi
-
-    if [ ! -f ~/.suroot/.bashrc ]; then
-        cp ~/.bashrc ~/.suroot/
-    fi
-
-    echo " "
-    echo " [*] Installation successful !!!"
-    echo " "
-    echo "> Run 'tsu' anywhere to start Termux's Root User."
-    echo " "
-
-}
-
 function termux_extra-keys() {
 
     echo " "
@@ -208,6 +183,33 @@ function termux_sshd() {
     echo " "
     echo "   -> start : $ sshd"
     echo "   -> stop  : $ pkill sshd"
+    echo " "
+
+}
+
+function install_termux-rootuser() {
+
+    echo " [*] Installing Termux's Root User..."
+    echo " "
+    sleep 2
+    apt install tsu -y
+
+    if [[ ! -d ~/.suroot ]]; then
+        mkdir ~/.suroot
+    fi
+
+    if [[ ! -f ~/.bashrc ]]; then
+    curl -os ~/.bashrc https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/bashrc.txt
+    fi
+
+    if [ ! -f ~/.suroot/.bashrc ]; then
+        cp ~/.bashrc ~/.suroot/
+    fi
+
+    echo " "
+    echo " [*] Installation successful !!!"
+    echo " "
+    echo "> Run 'tsu' anywhere to start Termux's Root User."
     echo " "
 
 }
@@ -275,21 +277,18 @@ function install_termux-superuser() {
 
 }
 
-
 function storage_api() {
 
     echo " [*] Connecting Phones storage to Termux..."
     echo " "
-
     sleep 2  
     termux-setup-storage
     sleep 2
-    ln -s /storage/emulated/999/ ~/storage/DualSpace
-
+    ln -s /storage/emulated/999/ ~/storage/DualStorage
     echo " "
     echo " [*] Installation successful !!!"
     echo " "
-    echo "> Run 'tsu' anywhere to start Termux's Root User."
+    echo "> Phone storage is now linked to sdcard"
     echo " "
 
 }
