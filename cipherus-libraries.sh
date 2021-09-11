@@ -64,7 +64,7 @@ function ibar {
     FILL='------------------------------'
     Lines=$2  # To No. lines in file that need to be present.
     barLen=30 # Bar Lenght of progressbar.
-    count=0
+    count=1
 
     if [[ $3 -ne 0 ]]; then
         tm=$(awk "BEGIN {print $3/1000}")
@@ -107,7 +107,6 @@ function termux_bashrc() {
 
     echo " [*] Configuring bashrc ..."
     echo " "
-    exit
     if [[ -f ~/.bashrc ]]; then
         mv ~/.bashrc ~/.bashrc.bak
     fi
@@ -186,6 +185,8 @@ function termux_extra-keys() {
     echo " "
     echo " > Successfully added extra Keys to Termux !!!"
     echo " "
+
+    exit
 
 }
 
@@ -292,4 +293,3 @@ function storage_api() {
     echo " "
 
 }
-
