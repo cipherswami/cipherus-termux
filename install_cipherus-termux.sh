@@ -67,19 +67,19 @@ exit
 ##########################
 
 ### Boot nethunter ###
-# banner_cipherusprime
-# install_boot-nethunter
-# echo " "
-# echo " Press ENTER to continue ..."
-# read
+banner_cipherusprime
+install_boot-nethunter
+echo " "
+echo " Press ENTER to continue ..."
+read
 ######################
 
 ### Termux superuser ###
-# banner_cipherusprime
-# install_termux-superuser
-# echo " "
-# echo " Press ENTER to continue ..."
-# read
+banner_cipherusprime
+install_termux-superuser
+echo " "
+echo " Press ENTER to continue ..."
+read
 ########################
 
 ### Storage API ###
@@ -93,8 +93,6 @@ read
 ##### cleaning #####
 banner_cipherusprime
 clean_cipherus
-####################
-
 # Succssful Installation Screen
 echo " "
 echo " [*] Successfully configured Termux, as per "
@@ -104,3 +102,4 @@ echo " [!] Termux needs to be restarted, for installation"
 echo "     to work properly, Please restart !!!"
 echo " "
 read
+#### The END ####

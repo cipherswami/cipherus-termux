@@ -1,6 +1,7 @@
 # This functions are part of cipherus tool installations
 # After installation if you still see this file.
 # The package might have been broken. Please contact, the creator.
+
 # Author ->
 # Aravind Swami [github: name-is-cipher]
 # Twitter: name_is_cipher
@@ -32,19 +33,18 @@ function banner_cipherusprime() {
 function ynprompt() {
 
     echo " "
-    read -p "$1 (y/n): " replay
+    read -p "$1 (y/n): " Replay
 
-    while true; do
-
-    if [ "$replay" = "Y" ] || [ "$replay" = "y" ]; then
-    replay=1
-    exit;
-    elif [ "$replay" = "N" ] || [ "$replay" = "n" ]; then
-    replay=0
-    exit;
-    fi
-    read -p "$1, only (y/n): " replay
-    echo " "
+    while [ true ]; do
+        if [ "$Replay" = "Y" ] || [ "$Replay" = "y" ]; then
+            Replay=1
+            return 0
+        elif [ "$Replay" = "N" ] || [ "$Replay" = "n" ]; then
+            Replay=0
+            return 0
+        fi
+        read -p "$1, only (y/n): " Replay
+        echo " "
     done
 
 }
@@ -58,7 +58,8 @@ function clean_cipherus() {
 
 
 function ibar {
-
+    # This ibar function is taken from stackoverflow
+    # And modified according to ciperus needs.
     FILE=$1
     BAR='##############################'
     FILL='------------------------------'
@@ -86,17 +87,17 @@ function ibar {
 
     # Integrity checker
     if [ $percent != 100 ]; then
-    echo " "
-    echo " [!] File is corrupt, Please try to reinstall !!!"
-    echo " "
-    echo " If you keep seeing this error, contact the Author:-"
-    echo " "
-    echo " github: name-is-cipher"
-    echo " Twitter: name_is_cipher"
-    echo " Mail: aravindswami135@gmail.com"
-    clean_cipherus
-    read
-    exit
+        echo " "
+        echo " [!] File is corrupt, Please try to reinstall !!!"
+        echo " "
+        echo " If you keep seeing this error, contact the Author:-"
+        echo " "
+        echo " github: name-is-cipher"
+        echo " Twitter: name_is_cipher"
+        echo " Mail: aravindswami135@gmail.com"
+        clean_cipherus
+        read
+        exit
     fi
     echo " "
     echo " "
@@ -109,16 +110,30 @@ function termux_bashrc() {
 
     echo " [*] Configuring bashrc ..."
     echo " "
+    
     if [[ -f ~/.bashrc ]]; then
-        mv ~/.bashrc ~/.bashrc.bak
+        echo " [!] There is already a .bashrc file found, by installing Termux bashrc, your old .bashrc file will be backed up as bashrc.bak"
+        echo " "
+        ynprompt " [#] Do you want to install"
+        if [[ $Replay == "1" ]]; then
+            mv ~/.bashrc ~/.bashrc.bak
+        elif [[ $Replay == "0" ]]; then
+            banner_cipherusprime
+            clear
+            echo " [&] Skipped Termux bashrc keys"
+            echo " "
+            return 0
+        fi 
     fi
+
     curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/bashrc.txt
     read -p "Enter User Name Prompt: " User_Name
     read -p "Enter Device Name Prompt: " Device_Name
-    sed -i 's/DefaultPromt/TermuxPrompt/' bashrc.txt
-    sed -i 's/User_Name/$User_Name/' bashrc.txt
-    sed -i 's/Device_Name/$Device_Name/' bashrc.txt
+    sed -i 's/DefaultPrompt/TermuxPrompt/' bashrc.txt
+    sed -i 's/UserName/$User_Name/' bashrc.txt
+    sed -i 's/DeviceName/$Device_Name/' bashrc.txt
     mv bashrc.txt ~/.bashrc 
+
     if [ -d ~/.termux/bin ]; then
         echo >> ~/.bashrc
         echo "# This PATH is for Termux superuser bin folder" >> ~/.bashrc
@@ -149,19 +164,26 @@ function check_tbin() {
 function termux_extra-keys() {
 
     echo " "
-    echo " [*] Adding Extra Keys to Termux !!!"
+    echo " [*] Adding Termux Extra Keys !!!"
     echo " "
     if [[ -f ~/.termux/termux.properties ]]; then
-        mv ~/.termux/termux.properties ~/.termux/termux.properties.bak
+        echo " [!] There is already one version found, by installing Termux Extra keys, old one will be removed."
+        ynprompt " [#] Do you want to install"
+        if [[ $Replay == "1" ]]; then
+            rm ~/.termux/termux.properties
+        elif [[ $Replay == "0" ]]; then
+            banner_cipherusprime
+            clear
+            echo " [&] Skipped Termux extra keys"
+            return 0
+        fi       
     fi
     curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/termux.properties.txt
     ibar ~/.termux/termux.properties 92
-
+    mv termux.properties.txt ~/.termux/termux.properties
     echo " "
     echo " > Successfully added extra Keys to Termux !!!"
     echo " "
-
-    exit
 
 }
 
@@ -199,7 +221,7 @@ function install_termux-rootuser() {
     fi
 
     if [[ ! -f ~/.bashrc ]]; then
-    curl -os ~/.bashrc https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/bashrc.txt
+        curl -os ~/.bashrc https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/bashrc.txt
     fi
 
     if [ ! -f ~/.suroot/.bashrc ]; then
@@ -219,30 +241,22 @@ function install_boot-nethunter() {
     echo " [*] Installing Boot Nethunter ..."
     echo " "
 
-    # Making boot-kali
-    echo "#! /data/data/com.termux/files/usr/bin/bash" > ~/.termux/bin/boot-kali
-    echo "# This scrpit boots nethunter in termux" >> ~/.termux/bin/boot-kali
-    echo >> ~/.termux/bin/boot-kali
-    echo "su -c '" >> ~/.termux/bin/boot-kali
-    echo "nethunter_env=\$PATH:/system/sbin" >> ~/.termux/bin/boot-kali
-    echo "nethunter_env=\$nethunter_env:/product/bin" >> ~/.termux/bin/boot-kali
-    echo "nethunter_env=\$nethunter_env:/apex/com.android.runtime/bin" >> ~/.termux/bin/boot-kali
-    echo "nethunter_env=\$nethunter_env:/odm/bin" >> ~/.termux/bin/boot-kali
-    echo "nethunter_env=\$nethunter_env:/vendor/bin" >> ~/.termux/bin/boot-kali
-    echo "nethunter_env=\$nethunter_env:/vendor/xbin" >> ~/.termux/bin/boot-kali
-    echo "nethunter_env=\$nethunter_env:/data/data/com.offsec.nethunter/files/scripts" >> ~/.termux/bin/boot-kali
-    echo "nethunter_env=\$nethunter_env:/data/data/com.offsec.nethunter/files/scripts/bin" >> ~/.termux/bin/boot-kali
-    echo "export PATH=\$nethunter_env; exec bootkali'" >> ~/.termux/bin/boot-kali
-    echo >> ~/.termux/bin/boot-kali
-    echo "# Author: Aravind Swami [github: name-is-cipher]" >> ~/.termux/bin/boot-kali
-    echo "# Mail: aravindswami135@gmail.com" >> ~/.termux/bin/boot-kali
+    if [[ -f ~/.termux/bin/boot-kali.sh ]]; then
+        echo " [!] There is already one version installed, removing and reinstalling the latest ..."   
+        rm -f ~/.termux/bin/boot-kali.sh
+    fi
 
-    chmod +x ~/.termux/bin/boot-kali
-    ibar ~/.termux/bin/boot-kali 16
+    # This one fetches the latest version boot-kali.sh
+    # You can check source code at: https://github.com/name-is-cipher/boot-nethunter
+
+    curl -Os https://raw.githubusercontent.com/name-is-cipher/boot-nethunter/$BRANCH/assets/boot-kali.sh
+    chmod +x ~/.termux/bin/boot-kali.sh
+    ibar ~/.termux/bin/boot-kali.sh 29
+
     echo " "
     echo " [*] Installation successful !!!"
     echo " "
-    echo "> Run 'boot-kali' anywhere to start Kali Chroot."
+    echo "> Run 'boot-kali.sh' anywhere to start Kali Chroot."
     echo " "
 
 }
@@ -252,22 +266,17 @@ function install_termux-superuser() {
     echo " [*] Installing Termux superuser ..."
     echo " "
 
-    # Making xsu
-    echo "#! /data/data/com.termux/files/usr/bin/bash" > ~/.termux/bin/xsu
-    echo "# This file starts termux in su with all termux binaries enabled" >> ~/.termux/bin/xsu
-    echo >> ~/.termux/bin/xsu
-    echo "su -c '" >> ~/.termux/bin/xsu
-    echo "xsu_env=\$PATH:/data/data/com.termux/files/usr/bin" >> ~/.termux/bin/xsu
-    echo "xsu_env=\$xsu_env:/data/data/com.termux/files/usr/bin/applets" >> ~/.termux/bin/xsu
-    echo "xsu_env=\$xsu_env:/data/data/com.termux/files/home/.termux/bin" >> ~/.termux/bin/xsu
-    echo "export PATH=\$xsu_env; exec su'" >> ~/.termux/bin/xsu
-    echo >> ~/.termux/bin/xsu
-    echo "# Author: Aravind Swami [github: name-is-cipher]" >> ~/.termux/bin/xsu
-    echo "# Twitter: name_is_cipher" >> ~/.termux/bin/xsu
-    echo "# Mail: aravindswami135@gmail.com" >> ~/.termux/bin/xsu
+    if [[ -f ~/.termux/bin/xsu.sh ]]; then
+        echo " [!] There is already one version installed, removing and reinstalling the latest ..."
+        rm -f ~/.termux/bin/xsu.sh
+    fi
 
-    chmod +x ~/.termux/bin/xsu
-    ibar ~/.termux/bin/xsu 12
+    # This one fetches the latest version xsu.sh
+    # You can check source code at: https://github.com/name-is-cipher/termux-superuser
+
+    curl -Os https://raw.githubusercontent.com/name-is-cipher/termux-superuser/$BRANCH/assets/xsu.sh
+    chmod +x ~/.termux/bin/xsu.sh
+    ibar ~/.termux/bin/xsu.sh 29
 
     echo " "
     echo " [*] Installation successful !!!"
