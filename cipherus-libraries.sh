@@ -51,7 +51,7 @@ function ynprompt() {
 
 function clean_cipherus() {
 
-    if [ -f cipherus-libraries.sh ]; then
+    if [[ -f cipherus-libraries.sh ]]; then
         rm cipherus-libraries.sh
     fi
 }
@@ -86,7 +86,7 @@ function ibar {
     echo " "
 
     # Integrity checker
-    if [ $percent != 100 ]; then
+    if [[ $percent != 100 ]]; then
         echo " "
         echo " [!] File is corrupt, Please try to reinstall !!!"
         echo " "
@@ -140,7 +140,7 @@ function termux_bashrc() {
     sed -i 's/DeviceName/$Device_Name/' bashrc.txt
     mv bashrc.txt ~/.bashrc 
 
-    if [ -d ~/.termux/bin ]; then
+    if [[ -d ~/.termux/bin ]]; then
         echo >> ~/.bashrc
         echo "# This PATH is for Termux superuser bin folder" >> ~/.bashrc
         echo "export PATH=\$PATH:/data/data/com.termux/files/home/.termux/bin" >> ~/.bashrc
@@ -149,7 +149,7 @@ function termux_bashrc() {
         ibar ~/.bashrc 39
     fi
 
-    if [[ (cat ~/.bashrc | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+    if [[ $(cat ~/.bashrc | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
         echo " [*] Successfully Configured bashrc"
         echo " "
     else
@@ -201,7 +201,7 @@ function termux_extra-keys() {
     mv termux.properties.txt ~/.termux/termux.properties
 
 
-    if [[ (cat ~/.termux/termux.properties | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+    if [[ $(cat ~/.termux/termux.properties | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
         echo " "
         echo " > Successfully added extra Keys to Termux !!!"
         echo " "
@@ -282,7 +282,7 @@ function install_boot-nethunter() {
     chmod +x ~/.termux/bin/boot-kali.sh
     ibar ~/.termux/bin/boot-kali.sh 30
 
-    if [[ (cat ~/.termux/bin/boot-kali.sh | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+    if [[ $(cat ~/.termux/bin/boot-kali.sh | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
         echo " "
         echo " [*] Installation successful !!!"
         echo " "
@@ -315,7 +315,7 @@ function install_termux-superuser() {
     chmod +x ~/.termux/bin/xsu.sh
     ibar ~/.termux/bin/xsu.sh 10
 
-    if [[ (cat ~/.termux/bin/xsu.sh | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+    if [[ $(cat ~/.termux/bin/xsu.sh | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
         echo " "
         echo " [*] Installation successful !!!"
         echo " "
