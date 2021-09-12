@@ -33,3 +33,6 @@ unset color_prompt force_color_prompt
 # Aliases
 export alias lsa="ls -AlF"
 export alias ll="ls -l"
+
+# Author: Cipher
+# Mail: aravindswami135@gmail.com
