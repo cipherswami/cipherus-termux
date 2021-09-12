@@ -92,13 +92,14 @@ function ibar {
         echo " "
         echo " If you keep seeing this error, contact the Author:-"
         echo " "
-        echo " github: name-is-cipher"
+        echo " Github: name-is-cipher"
         echo " Twitter: name_is_cipher"
         echo " Mail: aravindswami135@gmail.com"
         clean_cipherus
         read
         exit
     fi
+
     echo " "
     echo " "
 
@@ -112,18 +113,23 @@ function termux_bashrc() {
     echo " "
     
     if [[ -f ~/.bashrc ]]; then
-        echo " [!] There is already a .bashrc file found, by installing Termux bashrc, your old .bashrc file will be backed up as bashrc.bak"
+        echo "[!] There is already a .bashrc file exists,"
+        echo " by installing Termux bashrc, your old. bashrc"
+        echo " file will be backed up as bashrc.bak"
         echo " "
         ynprompt " [#] Do you want to install"
+        echo " "
+
         if [[ $Replay == "1" ]]; then
             mv ~/.bashrc ~/.bashrc.bak
         elif [[ $Replay == "0" ]]; then
-            banner_cipherusprime
             clear
+            banner_cipherusprime
             echo " [&] Skipped Termux bashrc keys"
             echo " "
             return 0
         fi 
+
     fi
 
     curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/bashrc.txt
@@ -138,13 +144,17 @@ function termux_bashrc() {
         echo >> ~/.bashrc
         echo "# This PATH is for Termux superuser bin folder" >> ~/.bashrc
         echo "export PATH=\$PATH:/data/data/com.termux/files/home/.termux/bin" >> ~/.bashrc
-        ibar ~/.bashrc 38
+        ibar ~/.bashrc 42
     else
-        ibar ~/.bashrc 35
+        ibar ~/.bashrc 39
     fi
 
-    echo " [*] Successfully Configured bashrc"
-    echo " "
+    if [[ (cat ~/.bashrc | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+        echo " [*] Successfully Configured bashrc"
+        echo " "
+    else
+        echo " [!] Installation unsuccessful,"
+        echo "     due to some reason."
 
 }
 
@@ -166,24 +176,40 @@ function termux_extra-keys() {
     echo " "
     echo " [*] Adding Termux Extra Keys !!!"
     echo " "
+
     if [[ -f ~/.termux/termux.properties ]]; then
-        echo " [!] There is already one version found, by installing Termux Extra keys, old one will be removed."
+        echo "[!] There is already one version found,"
+        echo " by installing this Termux Extra keys"
+        echo " old one will be removed."
         ynprompt " [#] Do you want to install"
+        echo " "
+
         if [[ $Replay == "1" ]]; then
             rm ~/.termux/termux.properties
         elif [[ $Replay == "0" ]]; then
-            banner_cipherusprime
             clear
+            banner_cipherusprime
             echo " [&] Skipped Termux extra keys"
+            echo " "
             return 0
-        fi       
+        fi  
+
     fi
+
     curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/termux.properties.txt
     ibar ~/.termux/termux.properties 92
     mv termux.properties.txt ~/.termux/termux.properties
-    echo " "
-    echo " > Successfully added extra Keys to Termux !!!"
-    echo " "
+
+
+    if [[ (cat ~/.termux/termux.properties | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+        echo " "
+        echo " > Successfully added extra Keys to Termux !!!"
+        echo " "
+    else
+        echo " "
+        echo " [!] Installation unsuccessful,"
+        echo "     due to some reason."
+    fi
 
 }
 
@@ -196,6 +222,7 @@ function termux_sshd() {
     apt install openssh -y
     sleep 1
     clear
+    banner_cipherusprime
     echo " > Set the Passwaord for current user,"
     echo "   in order to Login to ssh..."
     echo " "
@@ -242,7 +269,8 @@ function install_boot-nethunter() {
     echo " "
 
     if [[ -f ~/.termux/bin/boot-kali.sh ]]; then
-        echo " [!] There is already one version installed, removing and reinstalling the latest ..."   
+        echo "[!] There is already one version installed,"
+        echo " removing and reinstalling the latest ..."   
         rm -f ~/.termux/bin/boot-kali.sh
     fi
 
@@ -250,14 +278,21 @@ function install_boot-nethunter() {
     # You can check source code at: https://github.com/name-is-cipher/boot-nethunter
 
     curl -Os https://raw.githubusercontent.com/name-is-cipher/boot-nethunter/$BRANCH/assets/boot-kali.sh
+    mv boot-kali.sh ~/.termux/bin
     chmod +x ~/.termux/bin/boot-kali.sh
-    ibar ~/.termux/bin/boot-kali.sh 29
+    ibar ~/.termux/bin/boot-kali.sh 30
 
-    echo " "
-    echo " [*] Installation successful !!!"
-    echo " "
-    echo "> Run 'boot-kali.sh' anywhere to start Kali Chroot."
-    echo " "
+    if [[ (cat ~/.termux/bin/boot-kali.sh | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+        echo " "
+        echo " [*] Installation successful !!!"
+        echo " "
+        echo "> Run 'boot-kali.sh' anywhere to start Kali Chroot."
+        echo " "
+    else
+        echo " "
+        echo " [!] Installation unsuccessful,"
+        echo "     due to some reason."
+    fi
 
 }
 
@@ -267,7 +302,8 @@ function install_termux-superuser() {
     echo " "
 
     if [[ -f ~/.termux/bin/xsu.sh ]]; then
-        echo " [!] There is already one version installed, removing and reinstalling the latest ..."
+        echo "[!] There is already one version installed," 
+        echo " removing and reinstalling the latest ..."
         rm -f ~/.termux/bin/xsu.sh
     fi
 
@@ -275,14 +311,21 @@ function install_termux-superuser() {
     # You can check source code at: https://github.com/name-is-cipher/termux-superuser
 
     curl -Os https://raw.githubusercontent.com/name-is-cipher/termux-superuser/$BRANCH/assets/xsu.sh
+    mv xsu.sh ~/.termux/bin
     chmod +x ~/.termux/bin/xsu.sh
-    ibar ~/.termux/bin/xsu.sh 29
+    ibar ~/.termux/bin/xsu.sh 10
 
-    echo " "
-    echo " [*] Installation successful !!!"
-    echo " "
-    echo "> Run 'xsu' anywhere to start Termux Superuser."
-    echo " "
+    if [[ (cat ~/.termux/bin/xsu.sh | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+        echo " "
+        echo " [*] Installation successful !!!"
+        echo " "
+        echo "> Run 'xsu' anywhere to start Termux Superuser."
+        echo " "
+    else
+        echo " "
+        echo " [!] Installation unsuccessful,"
+        echo "     due to some reason."
+    fi
 
 }
 
@@ -290,14 +333,23 @@ function storage_api() {
 
     echo " [*] Connecting Phones storage to Termux..."
     echo " "
-    sleep 2  
+    sleep 2
     termux-setup-storage
     sleep 2
     ln -s /storage/emulated/999/ ~/storage/DualStorage
-    echo " "
-    echo " [*] Installation successful !!!"
-    echo " "
-    echo "> Phone storage is now linked to sdcard"
-    echo " "
+
+    if [[ -d ~/storage ]]; then
+        echo " "
+        echo " [*] Installation successful !!!"
+        echo " "
+        echo "> Phone storage is now linked to sdcard"
+        echo " "
+    else
+        echo " "
+        echo " [!] There was some problem"
+        echo "     linking storage."
+    fi
+
+
 
 }

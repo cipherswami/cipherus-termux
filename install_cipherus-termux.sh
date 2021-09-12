@@ -63,7 +63,6 @@ install_termux-rootuser
 echo " "
 echo " Press ENTER to continue ..."
 read
-exit
 ##########################
 
 ### Boot nethunter ###
