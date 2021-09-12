@@ -90,3 +90,7 @@
 # Cipher's Termux Extra keys Configuration
 extra-keys = [['CTRL','$','|','HOME','UP','END','-','='], \
               ['TAB','ESC','ALT','LEFT','DOWN','RIGHT','/','DEL']]
+
+# Author: Aravind Swami [github: name-is-cipher]
+# Twitter: name_is_cipher
+# Mail: aravindswami135@gmail.com
