@@ -331,6 +331,14 @@ function install_termux-superuser() {
 
 function storage_api() {
 
+    echo " [#] Checking the status of storage API..."
+    sleep 2
+
+    if [[ -d ~/storage ]]; then
+        echo " [$] storage already connected !!!"
+        return 0
+    fi
+
     echo " [*] Connecting Phones storage to Termux..."
     echo " "
     sleep 2
