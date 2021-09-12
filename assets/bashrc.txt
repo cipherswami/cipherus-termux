@@ -34,5 +34,6 @@ unset color_prompt force_color_prompt
 export alias lsa="ls -AlF"
 export alias ll="ls -l"
 
-# Author: Cipher
+# Author: Aravind Swami [github: name-is-cipher]
+# Twitter: name_is_cipher
 # Mail: aravindswami135@gmail.com
