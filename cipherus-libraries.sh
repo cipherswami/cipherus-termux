@@ -149,7 +149,7 @@ function termux_bashrc() {
         ibar ~/.bashrc 39
     fi
 
-    if [[ $(cat ~/.bashrc | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+    if [[ $(grep "Mail" ~/.bashrc) == "# Mail: aravindswami135@gmail.com" ]]; then
         echo " [*] Successfully Configured bashrc"
         echo " "
     else
@@ -160,7 +160,7 @@ function termux_bashrc() {
 
 function check_tbin() {
 
-    if [ ! -d ~/.termux/bin ]; then
+    if [[ ! -d ~/.termux/bin ]]; then
         
         mkdir ~/.termux/bin
         echo >> ~/.bashrc
@@ -197,11 +197,11 @@ function termux_extra-keys() {
     fi
 
     curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/termux.properties.txt
-    ibar ~/.termux/termux.properties 92
+    ibar ~/.termux/termux.properties 96
     mv termux.properties.txt ~/.termux/termux.properties
 
 
-    if [[ $(cat ~/.termux/termux.properties | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+    if [[ $(grep "Mail" ~/.termux/termux.properties) == "# Mail: aravindswami135@gmail.com" ]]; then
         echo " "
         echo " > Successfully added extra Keys to Termux !!!"
         echo " "
@@ -282,7 +282,7 @@ function install_boot-nethunter() {
     chmod +x ~/.termux/bin/boot-kali.sh
     ibar ~/.termux/bin/boot-kali.sh 30
 
-    if [[ $(cat ~/.termux/bin/boot-kali.sh | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+    if [[ $(grep "Mail" ~/.termux/bin/boot-kali.sh) == "# Mail: aravindswami135@gmail.com" ]]; then
         echo " "
         echo " [*] Installation successful !!!"
         echo " "
@@ -315,7 +315,7 @@ function install_termux-superuser() {
     chmod +x ~/.termux/bin/xsu.sh
     ibar ~/.termux/bin/xsu.sh 10
 
-    if [[ $(cat ~/.termux/bin/xsu.sh | grep Mail) == "# Mail: aravindswami135@gmail.com"]]; then
+    if [[ $(grep "Mail" ~/.termux/bin/xsu.sh) == "# Mail: aravindswami135@gmail.com" ]]; then
         echo " "
         echo " [*] Installation successful !!!"
         echo " "
