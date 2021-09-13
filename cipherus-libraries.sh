@@ -88,18 +88,18 @@ function ibar {
     # Integrity checker
     if [[ $percent != 100 ]]; then
         echo " "
-        echo " [!] File is corrupt, Please try to reinstall !!!"
+        echo " [!] File is corrupt !!!" 
+        echo  " "
+        echo " [!] Try to reinstall this script from !!!"
+        echo "     cipherus-termux sub-scripts"
         echo " "
-        echo " If you keep seeing this error, contact the Author:-"
+        echo " [#] If you keep seeing this error, contact the Author:-"
         echo " "
         echo " Github: name-is-cipher"
         echo " Twitter: name_is_cipher"
         echo " Mail: aravindswami135@gmail.com"
-        clean_cipherus
         read
-        exit
     fi
-
     echo " "
     echo " "
 
@@ -136,8 +136,8 @@ function termux_bashrc() {
     read -p "Enter User Name Prompt: " User_Name
     read -p "Enter Device Name Prompt: " Device_Name
     sed -i 's/DefaultPrompt/TermuxPrompt/' bashrc.txt
-    sed -i 's/UserName/$User_Name/' bashrc.txt
-    sed -i 's/DeviceName/$Device_Name/' bashrc.txt
+    sed -i "s/UserName/$User_Name/" bashrc.txt
+    sed -i "s/DeviceName/$Device_Name/" bashrc.txt
     mv bashrc.txt ~/.bashrc 
 
     if [[ -d ~/.termux/bin ]]; then
@@ -198,8 +198,8 @@ function termux_extra-keys() {
     fi
 
     curl -Os https://raw.githubusercontent.com/name-is-cipher/cipherus-termux/$BRANCH/assets/termux.properties.txt
-    ibar ~/.termux/termux.properties 96
     mv termux.properties.txt ~/.termux/termux.properties
+    ibar ~/.termux/termux.properties 100
 
 
     if [[ $(grep "Mail" ~/.termux/termux.properties) == "# Mail: aravindswami135@gmail.com" ]]; then

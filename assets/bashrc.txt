@@ -4,12 +4,12 @@
 color_prompt=yes
 CustomPrompt=DefaultPrompt
 
+user=termux
+device=localhost
+
 if [[ CustomPrompt == "TermuxPrompt" ]]; then
 	user=UserName
 	device=DeviceName
-else
-	user=termux
-	device=localhost
 fi
 
 if [ "$color_prompt" = yes ]; then
