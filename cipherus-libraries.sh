@@ -98,11 +98,11 @@ function ibar {
         echo " Github: name-is-cipher"
         echo " Twitter: name_is_cipher"
         echo " Mail: aravindswami135@gmail.com"
-        read
+        return
     fi
     echo " "
     echo " "
-
+ 
 }
 
 # Main Installation Functions
@@ -111,7 +111,8 @@ function termux_bashrc() {
 
     echo " [*] Configuring bashrc ..."
     echo " "
-    
+    sleep 2
+
     if [[ -f ~/.bashrc ]]; then
         echo "[!] There is already a .bashrc file exists,"
         echo " by installing Termux bashrc, your old. bashrc"
@@ -164,7 +165,7 @@ function check_tbin() {
     if [[ ! -d ~/.termux/bin ]]; then
         
         mkdir ~/.termux/bin
-        echo >> ~/.bashrc
+        echo " ">> ~/.bashrc
         echo "# This PATH is for Termux superuser bin folder" >> ~/.bashrc
         echo "export PATH=\$PATH:/data/data/com.termux/files/home/.termux/bin" >> ~/.bashrc
 
@@ -221,15 +222,15 @@ function termux_sshd() {
     echo " "
     sleep 2
     apt install openssh -y
-    sleep 1
+    echo " "
+    echo " > Successfully installed sshd !!!"
+    read
     clear
     banner_cipherusprime
     echo " > Set the Passwaord for current user,"
     echo "   in order to Login to ssh..."
     echo " "
     passwd
-    echo " "
-    echo " > Successfully installed sshd !!!"
     echo " "
     echo "   -> start : $ sshd"
     echo "   -> stop  : $ pkill sshd"
@@ -320,7 +321,7 @@ function install_termux-superuser() {
         echo " "
         echo " [*] Installation successful !!!"
         echo " "
-        echo "> Run 'xsu' anywhere to start Termux Superuser."
+        echo "> Run 'xsu.sh' anywhere to start Termux Superuser."
         echo " "
     else
         echo " "
@@ -333,6 +334,7 @@ function install_termux-superuser() {
 function storage_api() {
 
     echo " [#] Checking the status of storage API..."
+    echo " "
     sleep 2
 
     if [[ -d ~/storage ]]; then
@@ -344,7 +346,7 @@ function storage_api() {
     echo " "
     sleep 2
     termux-setup-storage
-    sleep 2
+    sleep 5
     ln -s /storage/emulated/999/ ~/storage/DualStorage
 
     if [[ -d ~/storage ]]; then
