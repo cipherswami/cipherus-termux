@@ -155,6 +155,7 @@ function termux_bashrc() {
     else
         echo " [!] Installation unsuccessful,"
         echo "     due to some reason."
+    fi
 
 }
 
@@ -357,7 +358,5 @@ function storage_api() {
         echo " [!] There was some problem"
         echo "     linking storage."
     fi
-
-
 
 }
