@@ -145,9 +145,9 @@ function termux_bashrc() {
         echo >> ~/.bashrc
         echo "# This PATH is for Termux superuser bin folder" >> ~/.bashrc
         echo "export PATH=\$PATH:/data/data/com.termux/files/home/.termux/bin" >> ~/.bashrc
-        ibar ~/.bashrc 42
+        ibar ~/.bashrc 43
     else
-        ibar ~/.bashrc 39
+        ibar ~/.bashrc 40
     fi
 
     if [[ $(grep "Mail" ~/.bashrc) == "# Mail: aravindswami135@gmail.com" ]]; then
@@ -224,6 +224,8 @@ function termux_sshd() {
     apt install openssh -y
     echo " "
     echo " > Successfully installed sshd !!!"
+    echo " "
+    echo " [-] Press any key to set Password."
     read
     clear
     banner_cipherusprime
