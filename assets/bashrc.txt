@@ -1,0 +1,40 @@
+### This is cipher's bashrc configuration ###
+
+### Termux Prompt ###
+color_prompt=yes
+PROMPT=1
+
+user=termux
+device=localhost
+
+if [[ PROMPT != "0" ]]; then
+	user=UserName
+	device=DeviceName
+fi
+
+if [ "$color_prompt" = yes ]; then
+
+	prompt_color='\[\033[;32m\]'
+	info_color='\[\033[1;34m\]'
+	prompt_symbol=👽
+
+	if [ "$EUID" -eq 0 ]; then 
+		# Change prompt colors for root user
+        prompt_color='\[\033[;94m\]'
+        info_color='\[\033[1;31m\]'
+        prompt_symbol=💀
+		user=root
+	fi
+
+	PS1=$prompt_color'┌──('$info_color'${user}${prompt_symbol}${device}'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─'$info_color'\$\[\033[0m\] '
+fi
+
+unset color_prompt force_color_prompt
+
+# Aliases
+export alias lsa="ls -AlF"
+export alias ll="ls -l"
+
+# Author: Aravind Swami [github: name-is-cipher]
+# Twitter: name_is_cipher
+# Mail: aravindswami135@gmail.com
